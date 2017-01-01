@@ -31,6 +31,23 @@ RCT_EXPORT_METHOD(weiboLogin) {
   [self _callWeiboLogin];
 }
 
+RCT_EXPORT_METHOD(weixinShare:(NSString*)title content:(NSString*)c) {
+  [self _weixinShare:(NSString*)title content:(NSString*)c];
+}
+
+- (void)_weixinShare:(NSString*)title content:(NSString*)content {
+  NSLog(@"duguying\n");
+  
+  OSMessage *msg=[[OSMessage alloc] init];
+  msg.title=title;
+//  msg.desc=content;
+  msg.multimediaType=0;
+//  msg.link=@"https://www.baidu.com";
+  
+  [OpenShare connectWeixinWithAppId:@"wxc66f25ef772247a9"];
+  [OpenShare shareToWeixinSession:msg Success:NULL Fail:NULL];
+     
+}
 
 - (void)_callback {
   NSLog(@"Success call native modules");
